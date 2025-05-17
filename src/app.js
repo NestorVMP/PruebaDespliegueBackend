@@ -18,7 +18,7 @@ app.use(express.json());
   credentials: true
 }));*/
 app.use(cors({
-  origin: ['http://localhost:5173','https://pruebadesplieguebackend.onrender.com'],
+  origin: ['http://localhost:5173','https://pruebadesplieguebackend.onrender.com','http://192.168.1.136:3000','http://localhost:3000'],
   credentials: true
 }));
 

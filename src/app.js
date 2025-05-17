@@ -35,6 +35,10 @@ app.use('/api', apiLimiter);
 
 app.use('/user', UserRoutes);
 
+app.get('/', (req, res) => {
+  res.send('API de backend en funcionamiento');
+});
+
 app.use(notFoundHandler);
 app.use(errorHandler);
 

@@ -49,13 +49,18 @@ const UserController = {
                 if (!isMatch) return res.status(401).json({ message: 'Contraseña incorrecta' });
 
                 const token = generateToken(user._id, user.role);
-                res.cookie('token', token, {
+                /*res.cookie('token', token, {
                     httpOnly: true,
                     secure: false,
                     sameSite: 'Lax',
                     maxAge: 3 * 60 * 1000
+                });*/
+                res.cookie('token', token, {
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: 'None',
+                    maxAge: 3 * 60 * 1000
                 });
-
 
                 res.status(201).json({ message: 'Inicio de sesión exitoso', user: user });
             } catch (err) {

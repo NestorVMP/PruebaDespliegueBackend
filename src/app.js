@@ -18,7 +18,8 @@ app.use(express.json());
   credentials: true
 }));*/
 app.use(cors({
-  origin: ['http://localhost:5173','https://pruebadesplieguebackend.onrender.com','http://192.168.1.136:3000','http://localhost:3000','https://prueba-despliegue-frontend.vercel.app'],
+  origin: ['http://localhost:5173','https://pruebadesplieguebackend.onrender.com','http://192.168.1.136:3000','http://localhost:3000',
+    'https://prueba-despliegue-frontend.vercel.app','https://prueba-despliegue-frontend-3xiih9qlp-nestor-vmps-projects.vercel.app'],
   credentials: true
 }));
 

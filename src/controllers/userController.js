@@ -23,8 +23,9 @@ const UserController = {
                 });*/
                 res.cookie('token', token, {
                     httpOnly: true,
-                    secure: false,
+                    secure: true,
                     sameSite: 'none',
+                    domain: "vercel.app",
                     maxAge: 3 * 60 * 1000,
                 });
 

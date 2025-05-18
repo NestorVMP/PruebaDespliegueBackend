@@ -10,6 +10,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 const cookieParser = require('cookie-parser');
 
 const app = express();
+app.set('trust proxy', 1); // ⬅️ AÑADE ESTA LÍNEA AQUÍ
+
 app.use(cookieParser());
 app.use(express.json());
 

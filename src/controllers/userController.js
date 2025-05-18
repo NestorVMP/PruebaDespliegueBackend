@@ -15,12 +15,19 @@ const UserController = {
                 const newUser = new User({ name, email, password: hash, role });
                 const savedUser = await newUser.save();
                 const token = generateToken(savedUser._id, savedUser.role);
-                res.cookie('token', token, {
+                /*res.cookie('token', token, {
                     httpOnly: true,
                     sameSite: 'Lax',
                     secure: false,
                     maxAge: 3 * 60 * 1000
+                });*/
+                res.cookie('token', token, {
+                    httpOnly: true,
+                    secure: false,
+                    sameSite: 'none',
+                    maxAge: 3 * 60 * 1000,
                 });
+
                   
 
                 res.status(201).json({ message: 'Usuario registrado correctamente', user: savedUser });

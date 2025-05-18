@@ -24,10 +24,10 @@ const UserController = {
                 res.cookie('token', token, {
                     httpOnly: true,
                     secure: true,
-                    sameSite: 'none',
-                    domain: "vercel.app",
-                    maxAge: 3 * 60 * 1000,
+                    sameSite: 'None',
+                    maxAge: 3 * 60 * 1000
                 });
+
 
                   
 
@@ -51,10 +51,11 @@ const UserController = {
                 const token = generateToken(user._id, user.role);
                 res.cookie('token', token, {
                     httpOnly: true,
-                    sameSite: 'Lax',
-                    secure: false,
+                    secure: true,
+                    sameSite: 'None',
                     maxAge: 3 * 60 * 1000
-                  });
+                });
+
 
                 res.status(201).json({ message: 'Inicio de sesión exitoso', user: user });
             } catch (err) {

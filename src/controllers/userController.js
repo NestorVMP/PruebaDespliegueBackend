@@ -51,8 +51,8 @@ const UserController = {
                 const token = generateToken(user._id, user.role);
                 res.cookie('token', token, {
                     httpOnly: true,
-                    secure: true,
-                    sameSite: 'None',
+                    secure: false,
+                    sameSite: 'Lax',
                     maxAge: 3 * 60 * 1000
                 });
 

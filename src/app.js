@@ -26,33 +26,22 @@ app.use(express.json());
   credentials: true
 }));*/
 
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://prueba-despliegue-frontend.vercel.app',
-  'https://prueba-despliegue-frontend-3xiih9qlp-nestor-vmps-projects.vercel.app'
-];
+const corsOptions = {
+  origin: [
+    'https://prueba-despliegue-frontend.vercel.app',
+    'https://pruebadesplieguefrontend.vercel.app',
+    'http://localhost:5173'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('No autorizado por CORS'));
-    }
-  },
-  credentials: true
-}));
+app.use(cors(corsOptions));
 
-app.options('*', cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('No autorizado por CORS'));
-    }
-  },
-  credentials: true
-}));
+// Muy importante: esto permite que Render responda correctamente al preflight
+app.options('*', cors(corsOptions));
+
 
 app.use(helmet());
 app.use(mongoSanitize());

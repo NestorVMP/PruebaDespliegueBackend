@@ -10,7 +10,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 const cookieParser = require('cookie-parser');
 
 const app = express();
-app.set('trust proxy', 1); // ⬅️ AÑADE ESTA LÍNEA AQUÍ
+//app.set('trust proxy', 1); // ⬅️ AÑADE ESTA LÍNEA AQUÍ
+app.set('trust proxy', true);
 
 app.use(cookieParser());
 app.use(express.json());
@@ -27,23 +28,29 @@ app.use(express.json());
 }));*/
 
 const corsOptions = {
-  origin: [
-    'https://prueba-despliegue-frontend.vercel.app',
-    'https://pruebadesplieguefrontend.vercel.app',
-    'http://localhost:5173'
-  ],
+  origin: function (origin, callback) {
+    console.log('Origin recibido:', origin);
+    const allowedOrigins = [
+      'https://prueba-despliegue-frontend.vercel.app',
+      'http://localhost:5173'
+    ];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 app.use(cors(corsOptions));
-
-// Muy importante: esto permite que Render responda correctamente al preflight
+console.log('CORS aplicado')
 app.options('*', cors(corsOptions));
 
 
-app.use(helmet());
+//app.use(helmet());
 app.use(mongoSanitize());
 
 const apiLimiter = rateLimit({ 
@@ -52,7 +59,7 @@ const apiLimiter = rateLimit({
   message: 'Demasiadas peticiones desde esta IP'
 });
 
-app.use('/api', apiLimiter);
+//app.use('/api', apiLimiter);
 
 app.use('/user', UserRoutes);
 

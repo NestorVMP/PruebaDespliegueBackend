@@ -27,28 +27,11 @@ app.use(express.json());
   credentials: true
 }));*/
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    console.log('Origin recibido:', origin);
-    const allowedOrigins = [
-      'https://prueba-despliegue-frontend.vercel.app',
-      'http://localhost:5173'
-    ];
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('No permitido por CORS'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-};
-
-app.use(cors(corsOptions));
-console.log('CORS aplicado')
-app.options('*', cors(corsOptions));
-
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
+app.options('*', cors());
 
 //app.use(helmet());
 app.use(mongoSanitize());
